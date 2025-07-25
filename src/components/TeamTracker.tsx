@@ -1,0 +1,107 @@
+import { useEffect, useState } from "react";
+import classes from "./TeamTracker.module.css";
+import { Grid } from "@mui/material";
+import Score from "./Score";
+
+const TeamTracker = () => {
+  interface Team {
+    name: string;
+    score: number;
+  }
+  const [teams, setTeams] = useState<Team[]>([]);
+  const PLACE_GRID_SIZE = 2;
+  const TEAM_NAME_GRID_SIZE = 4;
+  const TEAM_SCORE_GRID_SIZE = 6;
+  useEffect(() => {
+    // 1. get team data (name and score)
+    let teamsData = DUMMY_DATA;
+    // 2. sort data by score
+    teamsData.sort((a, b) => b.score - a.score);
+    setTeams(teamsData);
+  }, []);
+
+  const DUMMY_DATA = [
+    {
+      name: "team1",
+      score: 10,
+    },
+    {
+      name: "team2",
+      score: 50,
+    },
+    {
+      name: "team3",
+      score: 30,
+    },
+    {
+      name: "team3",
+      score: -12,
+    },
+    {
+      name: "team5",
+      score: 12,
+    },
+    {
+      name: "team6",
+      score: 75,
+    },
+  ];
+  return (
+    <div>
+      <h2>Crew Rankings</h2>
+      <div style={{ width: "500px" }}>
+        <Grid container spacing={2}>
+          <Grid size={PLACE_GRID_SIZE}>
+            <h3>Place</h3>
+          </Grid>
+          <Grid size={TEAM_NAME_GRID_SIZE}>
+            <h3>Team Name</h3>
+          </Grid>
+          <Grid size={TEAM_SCORE_GRID_SIZE}>
+            <h3>Score</h3>
+          </Grid>
+        </Grid>
+        {teams.map((team, index) => {
+          let rowColor = "gold";
+          switch (index) {
+            case 0:
+              rowColor = "gold";
+              break;
+            case 1:
+              rowColor = "silver";
+              break;
+            case 2:
+              rowColor = "#CD7F32";
+              break;
+            default:
+              rowColor = "inherit";
+              break;
+          }
+          return (
+            <Grid
+              container
+              spacing={2}
+              style={{ backgroundColor: rowColor, marginBottom: "10px" }}
+              className={classes.teamRow}
+              alignItems={'center'}
+            >
+              <Grid size={PLACE_GRID_SIZE}>
+                <h3>{index + 1}</h3>
+              </Grid>
+              <Grid size={TEAM_NAME_GRID_SIZE}>
+                <h3>{team.name}</h3>
+              </Grid>
+              <Grid size={TEAM_SCORE_GRID_SIZE}>
+                <div style={{width: '90%'}}>
+                <Score score={team.score} />
+                </div>
+              </Grid>
+            </Grid>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default TeamTracker;
