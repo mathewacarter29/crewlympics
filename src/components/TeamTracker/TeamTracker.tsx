@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import classes from "./TeamTracker.module.css";
 import { Grid } from "@mui/material";
 import Score from "../Score/Score";
+import getTeamData from "../../api/getTeamData";
+import type { Team } from "../../api/getTeamData";
 
 const TeamTracker = () => {
-  interface Team {
-    name: string;
-    score: number;
-  }
   const [teams, setTeams] = useState<Team[]>([]);
   const [highestScore, setHighestScore] = useState<number>(1);
   const PLACE_GRID_SIZE = 2;
@@ -15,39 +13,13 @@ const TeamTracker = () => {
   const TEAM_SCORE_GRID_SIZE = 6;
   useEffect(() => {
     // 1. get team data (name and score)
-    let teamsData = DUMMY_DATA;
+    let teamsData = getTeamData()
     // 2. sort data by score
     teamsData.sort((a, b) => b.score - a.score);
     setTeams(teamsData);
-    setHighestScore(teamsData[0].score);
+    // account for the highest score possibly being 0
+    setHighestScore((prevState) => Math.max(prevState, teamsData[0].score));
   }, []);
-
-  const DUMMY_DATA = [
-    {
-      name: "team1",
-      score: 10,
-    },
-    {
-      name: "team2",
-      score: 50,
-    },
-    {
-      name: "team3",
-      score: 30,
-    },
-    {
-      name: "team3",
-      score: -12,
-    },
-    {
-      name: "team5",
-      score: 12,
-    },
-    {
-      name: "team6",
-      score: 75,
-    },
-  ];
 
   // normalize the scores so they cant be greater than 100
   const normalizeScore = (score: number): number => {
@@ -92,6 +64,7 @@ const TeamTracker = () => {
               style={{ backgroundColor: rowColor, marginBottom: "10px" }}
               className={classes.teamRow}
               alignItems={"center"}
+              key={index}
             >
               <Grid size={PLACE_GRID_SIZE}>
                 <h3>{index + 1}</h3>
