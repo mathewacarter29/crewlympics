@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
   return (
     <div style={{ width: "50vw", minWidth: '320px' }}>
-      <h1>Crew-lympics</h1>
+      <span style={{whiteSpace: 'nowrap'}}><h1>Crew-lympics</h1></span>
       <TeamTracker />
     </div>
   );
