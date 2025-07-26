@@ -29,7 +29,7 @@ const TeamTracker = () => {
   return (
     <div>
       <h2>Crew Rankings</h2>
-      <div style={{ width: "500px" }}>
+      <div>
         <Grid container spacing={2}>
           <Grid size={PLACE_GRID_SIZE}>
             <h3>Place</h3>
