@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import classes from "./TeamTracker.module.css";
 import { Grid } from "@mui/material";
-import Score from "./Score";
+import Score from "../Score/Score";
 
 const TeamTracker = () => {
   interface Team {

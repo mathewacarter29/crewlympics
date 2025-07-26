@@ -1,5 +1,5 @@
 import './App.css'
-import TeamTracker from './components/TeamTracker'
+import TeamTracker from './components/TeamTracker/TeamTracker'
 
 function App() {
 
