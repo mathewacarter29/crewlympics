@@ -9,6 +9,7 @@ const TeamTracker = () => {
     score: number;
   }
   const [teams, setTeams] = useState<Team[]>([]);
+  const [highestScore, setHighestScore] = useState<number>(1);
   const PLACE_GRID_SIZE = 2;
   const TEAM_NAME_GRID_SIZE = 4;
   const TEAM_SCORE_GRID_SIZE = 6;
@@ -18,6 +19,7 @@ const TeamTracker = () => {
     // 2. sort data by score
     teamsData.sort((a, b) => b.score - a.score);
     setTeams(teamsData);
+    setHighestScore(teamsData[0].score);
   }, []);
 
   const DUMMY_DATA = [
@@ -46,6 +48,12 @@ const TeamTracker = () => {
       score: 75,
     },
   ];
+
+  // normalize the scores so they cant be greater than 100
+  const normalizeScore = (score: number): number => {
+    return 90 * (score / highestScore);
+  }
+
   return (
     <div>
       <h2>Crew Rankings</h2>
@@ -83,7 +91,7 @@ const TeamTracker = () => {
               spacing={2}
               style={{ backgroundColor: rowColor, marginBottom: "10px" }}
               className={classes.teamRow}
-              alignItems={'center'}
+              alignItems={"center"}
             >
               <Grid size={PLACE_GRID_SIZE}>
                 <h3>{index + 1}</h3>
@@ -92,8 +100,8 @@ const TeamTracker = () => {
                 <h3>{team.name}</h3>
               </Grid>
               <Grid size={TEAM_SCORE_GRID_SIZE}>
-                <div style={{width: '90%'}}>
-                <Score score={team.score} />
+                <div style={{ width: "90%" }}>
+                  <Score score={team.score} normalizedScore={normalizeScore(team.score)} />
                 </div>
               </Grid>
             </Grid>

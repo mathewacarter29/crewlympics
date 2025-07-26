@@ -1,6 +1,7 @@
 import { Slider } from "@mui/material";
 interface ScoreProps {
   score: number;
+  normalizedScore: number;
 }
 
 const Score = (props: ScoreProps) => {
@@ -10,11 +11,15 @@ const Score = (props: ScoreProps) => {
     >
       <h3 style={{ marginRight: "20px" }}>{props.score}</h3>
       <Slider
-        value={props.score}
+        value={props.normalizedScore}
         sx={{
           "& .MuiSlider-thumb:hover": {
-            boxShadow: 0
+            boxShadow: "none"
           },
+          "& .MuiSlider-thumb.Mui-focusVisible": {
+            boxShadow: "none"
+          },
+          // color: 'red'
         }}
       />
     </div>
