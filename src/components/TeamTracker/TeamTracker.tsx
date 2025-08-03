@@ -1,33 +1,27 @@
 import { useEffect, useState } from "react";
 import classes from "./TeamTracker.module.css";
 import { Grid } from "@mui/material";
-import Score from "../Score/Score";
 import getTeamData from "../../api/getTeamData";
 import type { Team } from "../../api/getTeamData";
+import Podium from "../Podium/Podium";
 
 const TeamTracker = () => {
   const [teams, setTeams] = useState<Team[]>([]);
-  const [highestScore, setHighestScore] = useState<number>(1);
-  const PLACE_GRID_SIZE = 2;
+  const PLACE_GRID_SIZE = 4;
   const TEAM_NAME_GRID_SIZE = 4;
-  const TEAM_SCORE_GRID_SIZE = 6;
+  const TEAM_SCORE_GRID_SIZE = 4;
   useEffect(() => {
     // 1. get team data (name and score)
     let teamsData = getTeamData()
     // 2. sort data by score
     teamsData.sort((a, b) => b.score - a.score);
     setTeams(teamsData);
-    // account for the highest score possibly being 0
-    setHighestScore((prevState) => Math.max(prevState, teamsData[0].score));
   }, []);
-
-  // normalize the scores so they cant be greater than 100
-  const normalizeScore = (score: number): number => {
-    return 90 * (score / highestScore);
-  }
 
   return (
     <div>
+      <h2>Podium</h2>
+      <Podium finalists={teams.slice(0, 3)}/>
       <h2>Crew Rankings</h2>
       <div>
         <Grid container spacing={2}>
@@ -73,9 +67,7 @@ const TeamTracker = () => {
                 <h3>{team.name}</h3>
               </Grid>
               <Grid size={TEAM_SCORE_GRID_SIZE}>
-                <div style={{ width: "90%" }}>
-                  <Score score={team.score} normalizedScore={normalizeScore(team.score)} />
-                </div>
+                <h3>{team.score}</h3>
               </Grid>
             </Grid>
           );

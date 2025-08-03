@@ -1,0 +1,28 @@
+.container {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  margin: auto;
+}
+
+.pedestal {
+  width: calc(100% / 3);
+  border: solid;
+  border-color: black;
+}
+
+.first {
+  height: 10vw;
+  background-color: gold;
+}
+
+.second {
+  height: 7vw;
+  background-color: silver;
+}
+
+.third {
+  height: 4vw;
+  background-color: #CD7F32;
+}
