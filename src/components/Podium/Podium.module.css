@@ -19,22 +19,16 @@
   height: 10vw;
   min-height: 100px;
   background-color: gold;
-  border: solid;
-  border-color: black;
 }
 
 .second {
   height: 7vw;
   min-height: 70px;
   background-color: silver;
-  border: solid;
-  border-color: black;
 }
 
 .third {
   height: 4vw;
   min-height: 40px;
   background-color: #cd7f32;
-  border: solid;
-  border-color: black;
 }
