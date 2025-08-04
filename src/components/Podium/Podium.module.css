@@ -2,27 +2,39 @@
   width: 75%;
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: end;
   margin: auto;
 }
 
 .pedestal {
   width: calc(100% / 3);
-  border: solid;
-  border-color: black;
+}
+
+.pedestal h3 {
+  color: #ffffff;
+  margin-top: 1vw;
 }
 
 .first {
   height: 10vw;
+  min-height: 100px;
   background-color: gold;
+  border: solid;
+  border-color: black;
 }
 
 .second {
   height: 7vw;
+  min-height: 70px;
   background-color: silver;
+  border: solid;
+  border-color: black;
 }
 
 .third {
   height: 4vw;
-  background-color: #CD7F32;
+  min-height: 40px;
+  background-color: #cd7f32;
+  border: solid;
+  border-color: black;
 }

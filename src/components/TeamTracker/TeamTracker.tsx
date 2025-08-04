@@ -12,7 +12,7 @@ const TeamTracker = () => {
   const TEAM_SCORE_GRID_SIZE = 4;
   useEffect(() => {
     // 1. get team data (name and score)
-    let teamsData = getTeamData()
+    let teamsData = getTeamData();
     // 2. sort data by score
     teamsData.sort((a, b) => b.score - a.score);
     setTeams(teamsData);
@@ -20,8 +20,9 @@ const TeamTracker = () => {
 
   return (
     <div>
-      <h2>Podium</h2>
-      <Podium finalists={teams.slice(0, 3)}/>
+      <div style={{ marginBottom: "3vw" }}>
+        <Podium finalists={teams.length >= 3 ? teams.slice(0, 3) : []} />
+      </div>
       <h2>Crew Rankings</h2>
       <div>
         <Grid container spacing={2}>
