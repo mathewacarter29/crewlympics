@@ -1,6 +1,6 @@
 import type { Team } from "../../api/getTeamData";
 import classes from "./Podium.module.css";
-import trophy from '../../public/trophy.png';
+import trophy from '../../public/trophy.png'; 
 
 interface PodiumProps {
   // this should be a sorted list of the top 3 teams
