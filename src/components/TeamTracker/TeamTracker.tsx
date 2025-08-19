@@ -18,10 +18,27 @@ const TeamTracker = () => {
     setTeams(teamsData);
   }, []);
 
+  const getFinalists = (teamsList: Team[]): Team[] =>  {
+    if (!teamsList || teamsList.length < 3) {
+      return [];
+    }
+    let results: Team[] = [];
+    let currFinalist: Team = JSON.parse(JSON.stringify(teamsList[0]));
+    for (let i = 1; i < teamsList.length && results.length < 3; i++) {
+      if (currFinalist.score !== teamsList[i].score) {
+        results.push(currFinalist);
+        currFinalist = JSON.parse(JSON.stringify(teamsList[i]));
+      } else {
+        currFinalist.name += ', ' + teamsList[i].name;
+      }
+    }
+    return results;
+  }
+
   return (
     <div>
       <div style={{ marginBottom: "3vw" }}>
-        <Podium finalists={teams.length >= 3 ? teams.slice(0, 3) : []} />
+        <Podium finalists={getFinalists(teams)} />
       </div>
       <h2>Crew Rankings</h2>
       <div>
