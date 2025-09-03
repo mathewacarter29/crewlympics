@@ -35,6 +35,24 @@ const TeamTracker = () => {
     return results;
   }
 
+  const getLeaderboard = (allTeams: Team[]): Team[] => {
+    if (!allTeams || allTeams.length < 1) {
+      return [];
+    }
+    let results: Team[] = [];
+    let currFinalist: Team = JSON.parse(JSON.stringify(allTeams[0]));
+    for (let i = 1; i < allTeams.length; i++) {
+      if (currFinalist.score !== allTeams[i].score) {
+        results.push(currFinalist);
+        currFinalist = JSON.parse(JSON.stringify(allTeams[i]));
+      } else {
+        currFinalist.name += ', ' + allTeams[i].name;
+      }
+    }
+    console.log(results)
+    return results;
+  }
+
   return (
     <div>
       <div style={{ marginBottom: "3vw" }}>
@@ -53,7 +71,7 @@ const TeamTracker = () => {
             <h3>Score</h3>
           </Grid>
         </Grid>
-        {teams.map((team, index) => {
+        {getLeaderboard(teams).map((team, index) => {
           let rowColor = "gold";
           switch (index) {
             case 0:
